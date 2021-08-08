@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'initials/register.css' %}"/>
+{% endblock %}
+{% block title %}
+Register now
+{% endblock %}
+{% block content %}
+<form class="container jumbotron" method="POST">
+        <header class="lead"> Register Now</header><hr></hr>
+        {% csrf_token %}
+        <center >
+            <table>
+                {{form.as_table}}
+            </table>
+            <br>
+        <center> <button id="submit" type="submit" class="btn btn-success">Register</button></center>
+        </center>
+        {% if user.is_anonymous %}
+        <br><center><a href="{% url 'accounts:login' %}" style="color:red;" role="button">- Having an account -</a></center>
+        {% endif %}
+</form>
+{% endblock %}
