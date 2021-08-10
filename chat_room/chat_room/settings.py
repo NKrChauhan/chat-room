@@ -84,20 +84,20 @@ ASGI_APPLICATION = 'chat_room.asgi.application'
 
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
-    },
-    'accounts': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'accounts_db.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     },
-    'chat_app': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'chat_app_db.sqlite3',
-    }
+    # 'accounts': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'accounts_db.sqlite3',
+    # },
+    # 'chat_app': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'chat_app_db.sqlite3',
+    # }
 }
 
-DATABASE_ROUTERS = ['chat_room.routers.Accounts','chat_room.routers.Chats']
+# DATABASE_ROUTERS = ['chat_room.routers.Accounts','chat_room.routers.Chats']
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
