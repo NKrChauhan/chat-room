@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+{% endblock %}
+{% block title %}
+Welcome to Chat Room
+{% endblock %}
+{% block content %}
+{% if request.user.is_authenticated %}
+<a href="{% url 'accounts:logout' %}" style="justify-content: center;" class="d-flex btn btn-sm btn-danger">logout</a>
+{% endif %}
+<center class="container-fluid">
+    <div class="jumbotron row" id="chats">
+    {% for chat in object.chatmessage_set.all %}
+    <div class="container form-inline border border-secondary">
+        <p class="lead">{{chat.user}}: </p>
+        <hr>
+        <p > {{chat.message}}</p>
+    </div>
+    {% endfor %}    
+    </div>
+    <form method="POST" id="form-message" class="form-inline justify-content-center">
+        <table class="Container">
+            {% csrf_token %}
+            {{form.as_table}}
+        </table>
+        <button type="submit" class="btn btn-sm btn-primary">Send</button>
+    </form>
+<style>
+    .btn{
+        border-radius: 15px;
+    }
+</style>
+</center>
+<script>
+    var ep = ''
+    formData = $('#form-message')
+    msgData = $('#id_message')
+    if(window.location.protocol === 'https:'){
+        ep = 'wss://'
+    }else{
+        ep = 'ws://'
+    }
+    ep = ep + window.location.host + window.location.pathname
+    var ws = new WebSocket(ep);
+    ws.onopen = function (e) {
+        formData.submit(function(event){
+            event.preventDefault()
+            var data = {
+                'message':msgData.val()
+            }
+            ws.send(JSON.stringify(data))            
+            formData[0].reset()
+        }) 
+    };
+
+    ws.onmessage = function (e) {
+      var chats = $('#chats')
+      data = JSON.parse(e.data)
+      chats.append(
+        "<div class='container form-inline border border-secondary'><p class='lead'>"+data.user +": </p><hr><p >"+data.text+"</p></div>"
+      )
+      console.log(e.data);
+    };
+    
+    ws.onclose = function(e) { 
+      console.log('socket closed try again'); 
+    
+    }
+    
+    ws.onerror = function(err) {
+      console.error(err)
+    };
+    
+</script>
+{% endblock %}

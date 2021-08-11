@@ -6,6 +6,9 @@
 Welcome to Chat Room
 {% endblock %}
 {% block content %}
+{% if request.user.is_authenticated %}
+<a href="{% url 'accounts:logout' %}" style="justify-content: center;" class="d-flex btn btn-sm btn-danger">logout</a>
+{% endif %}
 <center class="Container">
     <div class="jumbotron row">
         <div class="col-md-6">

@@ -8,17 +8,18 @@ https://docs.djangoproject.com/en/3.2/howto/deployment/asgi/
 """
 
 import os
-from django.urls import path
+from django.conf.urls import url
 from channels.routing import ProtocolTypeRouter, URLRouter
 from channels.security.websocket import AllowedHostsOriginValidator
 from django.core.asgi import get_asgi_application
 from channels.auth import AuthMiddlewareStack
+from django.urls.conf import path
 from chatApp.consumers import ChatConsumer
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'chat_room.settings')
 
 Routers = [
-    path(r'^(?P<username>[\wa@+-]+)',ChatConsumer),
+    path('thread/<username>/',ChatConsumer()),
 ]
 
 application = ProtocolTypeRouter({
