@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block head %}
-<link rel="stylesheet" type="text/css" href="{% static 'initials/register.css' %}"/>
 {% endblock %}
 {% block title %}
 Register now
 {% endblock %}
 {% block content %}
-<form class="container jumbotron" method="POST">
+<a style="justify-content: center;" class="d-flex btn btn-sm btn-danger" href="{% url 'chat_app:home' %}">Go to home</a>
+<form class="container jumbotron my-3" method="POST">
         <header class="lead"> Register Now</header><hr></hr>
         {% csrf_token %}
         <center >
@@ -21,4 +21,5 @@ Register now
         <br><center><a href="{% url 'accounts:login' %}" style="color:red;" role="button">- Having an account -</a></center>
         {% endif %}
 </form>
+
 {% endblock %}

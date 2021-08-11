@@ -17,6 +17,8 @@ from django.utils.http import is_safe_url
 User = get_user_model()
 
 def LoginView(request):
+    if request.user.is_authenticated:
+        return redirect('/')
     form=UserLoginForm(request.POST or None)
     next_=request.GET.get('next')
     next_post=request.POST.get('next')
@@ -52,7 +54,7 @@ def RegisterView(request):
 @login_required
 def LogoutView(request):
     logout(request)
-    return redirect('/login')
+    return redirect('/')
 
 class UpdateUserView(LoginRequiredMixin,UpdateView):
     model = User
