@@ -18,12 +18,14 @@ from chatApp.consumers import ChatConsumer
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'chat_room.settings')
 
+# Blunder file spend 12 hrs for the error.
+
 Routers = [
-    path('thread/<username>/',ChatConsumer()),
+     path("thread/<username>/",ChatConsumer.as_asgi()),
 ]
 
 application = ProtocolTypeRouter({
-    # "http": get_asgi_application(),
+    "http": get_asgi_application(),
     'websocket': AllowedHostsOriginValidator(
         # Aloowed host in settings validator
         AuthMiddlewareStack(

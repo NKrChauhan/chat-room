@@ -74,7 +74,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'chat_room.wsgi.application' # this will not be in use now.
+# WSGI_APPLICATION = 'chat_room.wsgi.application' # this will not be in use now.
 
 ASGI_APPLICATION = 'chat_room.asgi.application'
 
@@ -95,6 +95,15 @@ DATABASES = {
     #     'ENGINE': 'django.db.backends.sqlite3',
     #     'NAME': BASE_DIR / 'chat_app_db.sqlite3',
     # }
+}
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("localhost", 6379)],
+        },
+    },
 }
 
 # DATABASE_ROUTERS = ['chat_room.routers.Accounts','chat_room.routers.Chats']
