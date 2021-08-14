@@ -20,6 +20,7 @@ Welcome to Chat Room
             <center>
                 {% if request.user.is_authenticated %}
                 <p class="lead mx-4"> you already logged in as : {{request.user}}</p>
+                
                 <a class="btn btn-lg btn-primary" href="">Go to chat room</a>
                 {% else %}
                 <a class="btn btn-lg btn-primary mx-4" href="{% url 'accounts:login' %}">Login</a>

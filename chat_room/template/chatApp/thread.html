@@ -10,11 +10,11 @@ Welcome to Chat Room
 <a href="{% url 'accounts:logout' %}" style="justify-content: center;" class="d-flex btn btn-sm btn-danger">logout</a>
 {% endif %}
 <center class="container-fluid">
-    <div class="jumbotron row" id="chats">
+    <div class="jumbotron row " style="height:500px;overflow: scroll;" id="chats">
     {% for chat in object.chatmessage_set.all %}
     <div class="container form-inline border border-secondary">
         <p class="lead">{{chat.user}}: </p>
-        <hr>
+        <hr/>
         <p > {{chat.message}}</p>
     </div>
     {% endfor %}    
@@ -42,10 +42,11 @@ Welcome to Chat Room
         ep = 'ws://'
     }
     ep = ep + window.location.host + window.location.pathname
-    var ws = new WebSocket(ep);
+    var ws = new ReconnectingWebSocket(ep);
     ws.onopen = function (e) {
         formData.submit(function(event){
             event.preventDefault()
+            console.log(msgData.val())
             var data = {
                 'message':msgData.val()
             }
@@ -58,8 +59,10 @@ Welcome to Chat Room
       var chats = $('#chats')
       data = JSON.parse(e.data)
       chats.append(
-        "<div class='container form-inline border border-secondary'><p class='lead'>"+data.user +": </p><hr><p >"+data.text+"</p></div>"
+        "<div class='container form-inline border border-secondary'><p class='lead'>"+data.user +": </p><hr><p >"+data.message+"</p></div>"
       )
+      chats.scrollTop(chats[0].scrollHeight);
+
       console.log(e.data);
     };
     

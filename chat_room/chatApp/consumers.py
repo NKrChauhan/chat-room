@@ -8,8 +8,7 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 class ChatConsumer(AsyncConsumer):
-    async def websocket_connect(self,event):
-        print("connected",event)
+    async def connect(self,event):
         await self.send({
             "type":"websocket.accept"
         })
